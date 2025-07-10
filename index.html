@@ -35,6 +35,8 @@
       margin: 0;
       letter-spacing: -0.05em;
       transition: font-family 0.1s ease;
+      position: relative;
+      line-height: 1; /* prevent extra line spacing */
     }
     .quote {
       font-family: Arial, sans-serif;
@@ -43,6 +45,7 @@
       transition: opacity 1s ease;
       max-width: 100%;
       word-wrap: break-word;
+      position: relative;
     }
     .quote .copyright {
       font-size: 0.4em;
@@ -53,6 +56,7 @@
     .email-wrapper {
       opacity: 0;
       transition: opacity 1s ease;
+      position: relative;
     }
     a.email-link {
       font-family: Arial, sans-serif;
@@ -143,7 +147,6 @@
 
     let fontIndex = 0;
     let flickerInterval;
-    let flickerPaused = false;
 
     function startFlicker() {
       flickerInterval = setInterval(() => {
@@ -154,25 +157,22 @@
 
     function pauseFlicker() {
       clearInterval(flickerInterval);
-      flickerPaused = true;
       headline.style.fontFamily = "Arial, sans-serif";
     }
 
     function resumeFlicker() {
-      flickerPaused = false;
       startFlicker();
     }
 
     // Start flickering immediately
     startFlicker();
 
-    // After 2 seconds, pause and show quote/email
+    // After 2 seconds, pause and fade in quote and email
     setTimeout(() => {
       pauseFlicker();
       quote.style.opacity = 1;
       emailWrapper.style.opacity = 1;
-
-      // After 1s fade-in, resume flicker
+      // After fade-in, resume flickering
       setTimeout(() => {
         resumeFlicker();
       }, 1000);
@@ -180,4 +180,3 @@
   </script>
 </body>
 </html>
-
