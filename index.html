@@ -19,24 +19,25 @@
       background: #000;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .container {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 8vh;
+      gap: 12vh; /* increased spacing */
       margin-left: 7vw;
+      margin-top: 10vh; /* lifts everything higher */
       max-width: 90%;
     }
     h1 {
-      font-size: 18vw;
+      font-size: 14vw; /* reduced size */
       font-weight: 400;
       margin: 0;
       letter-spacing: -0.05em;
       transition: font-family 0.1s ease;
       position: relative;
-      line-height: 1; /* prevent extra line spacing */
+      line-height: 1;
     }
     .quote {
       font-family: Arial, sans-serif;
@@ -79,7 +80,7 @@
     }
     @media (max-width:600px) {
       h1 {
-        font-size: 22vw;
+        font-size: 18vw; /* also slightly reduced on mobile */
       }
       .quote {
         font-size: 5vw;
@@ -180,3 +181,4 @@
   </script>
 </body>
 </html>
+
