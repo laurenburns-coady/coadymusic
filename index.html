@@ -25,12 +25,10 @@
       transition: background-color 2s ease, color 0.5s ease;
     }
     .container {
-      margin-left: 5%;
-      margin-right: 5%;
+      margin-left: 7vw;
       max-width: 90%;
       display: flex;
       flex-direction: column;
-      flex-wrap: wrap;
     }
     h1 {
       font-size: 18vw;
@@ -70,7 +68,7 @@
         font-size: 5vw;
       }
       .email-wrapper {
-        margin-left: 10vw;
+        margin-left: 7vw;
         margin-bottom: 1rem;
       }
       a.email-link {
@@ -147,10 +145,21 @@
         emailWrapper.style.opacity = 1;
 
         setTimeout(() => {
-          document.body.style.transition = 'background-color 2s ease, color 0.5s ease';
-          startBackgroundRotation();
-        }, 100);
+          document.body.style.transition = 'background-color 3s ease, color 0.5s ease';
+          fadeToBlue();
+        }, 2000); // 2 second pause before blue fade
       }
+    }
+
+    function fadeToBlue() {
+      // Fade to blue over 3 seconds
+      document.body.style.backgroundColor = colors[1];
+      // Fade in quote at the same time
+      quote.style.opacity = 1;
+
+      setTimeout(() => {
+        startBackgroundRotation();
+      }, 3000);
     }
 
     function startBackgroundRotation() {
@@ -159,16 +168,11 @@
         const newColor = colors[colorIndex];
         document.body.style.backgroundColor = newColor;
 
-        // Switch text color if background is white
+        // Switch text color for white background
         if (newColor === '#ffffff') {
           document.body.style.color = '#000';
         } else {
           document.body.style.color = '#fff';
-        }
-
-        // Show quote when transitioning to blue
-        if (newColor === '#002ea1') {
-          quote.style.opacity = 1;
         }
 
         const nextInterval = 2000 + Math.random() * 1000;
