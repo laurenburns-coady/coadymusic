@@ -25,13 +25,13 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 12vh; /* increased spacing */
+      gap: 12vh;
       margin-left: 7vw;
-      margin-top: 10vh; /* lifts everything higher */
+      margin-top: 10vh;
       max-width: 90%;
     }
     h1 {
-      font-size: 14vw; /* reduced size */
+      font-size: 14vw;
       font-weight: 400;
       margin: 0;
       letter-spacing: -0.05em;
@@ -80,7 +80,7 @@
     }
     @media (max-width:600px) {
       h1 {
-        font-size: 18vw; /* also slightly reduced on mobile */
+        font-size: 18vw;
       }
       .quote {
         font-size: 5vw;
@@ -128,57 +128,4 @@
       '"Arial Black", Gadget, sans-serif',
       '"Lucida Console", Monaco, monospace',
       '"Gill Sans", sans-serif',
-      '"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif',
-      '"Brush Script MT", cursive'
-    ];
-
-    function shuffle(array) {
-      let currentIndex = array.length, randomIndex;
-      while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [
-          array[randomIndex], array[currentIndex]
-        ];
-      }
-      return array;
-    }
-
-    const shuffledFonts = shuffle(fonts);
-
-    let fontIndex = 0;
-    let flickerInterval;
-
-    function startFlicker() {
-      flickerInterval = setInterval(() => {
-        headline.style.fontFamily = shuffledFonts[fontIndex];
-        fontIndex = (fontIndex + 1) % shuffledFonts.length;
-      }, 80);
-    }
-
-    function pauseFlicker() {
-      clearInterval(flickerInterval);
-      headline.style.fontFamily = "Arial, sans-serif";
-    }
-
-    function resumeFlicker() {
-      startFlicker();
-    }
-
-    // Start flickering immediately
-    startFlicker();
-
-    // After 2 seconds, pause and fade in quote and email
-    setTimeout(() => {
-      pauseFlicker();
-      quote.style.opacity = 1;
-      emailWrapper.style.opacity = 1;
-      // After fade-in, resume flickering
-      setTimeout(() => {
-        resumeFlicker();
-      }, 1000);
-    }, 2000);
-  </script>
-</body>
-</html>
-
+      '"Franklin Gothic Medium",
