@@ -8,21 +8,18 @@
   <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <!-- Load Courier Prime from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100vh;
       width: 100%;
-      font-family: 'Courier Prime', Courier, monospace;
+      font-family: Arial, sans-serif;
       color: #fff;
       background: #000;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      transition: background-color 2s ease, color 0.5s ease;
     }
     .container {
       display: flex;
@@ -37,31 +34,32 @@
       font-weight: 400;
       margin: 0;
       letter-spacing: -0.05em;
-      transition: font-family 0.2s ease, font-weight 0.2s ease, font-style 0.2s ease;
+      transition: font-family 0.1s ease;
     }
     .quote {
+      font-family: Arial, sans-serif;
       font-size: 2.5vw;
       opacity: 0;
-      transition: opacity 2s ease;
+      transition: opacity 1s ease;
       max-width: 100%;
       word-wrap: break-word;
     }
     .quote .copyright {
       font-size: 0.4em;
       opacity: 0.4;
-      color: #000;
+      color: #aaa;
       vertical-align: super;
     }
     .email-wrapper {
       opacity: 0;
-      transition: opacity 0.2s ease;
+      transition: opacity 1s ease;
     }
     a.email-link {
+      font-family: Arial, sans-serif;
       font-size: 3vw;
       color: inherit;
       text-decoration: none;
       font-weight: 400;
-      font-family: 'Courier Prime', Courier, monospace;
     }
     a.email-link:hover {
       text-decoration: underline;
@@ -72,7 +70,7 @@
       right: 2vw;
       font-size: 0.8vw;
       opacity: 0.4;
-      color: #000;
+      color: #888;
       font-family: Arial, sans-serif;
     }
     @media (max-width:600px) {
@@ -81,9 +79,6 @@
       }
       .quote {
         font-size: 5vw;
-      }
-      .email-wrapper {
-        margin-bottom: 1rem;
       }
       a.email-link {
         font-size: 14vw !important;
@@ -144,64 +139,45 @@
       return array;
     }
 
-    const shuffledFonts = shuffle(fonts).concat("'Courier Prime', Courier, monospace");
+    const shuffledFonts = shuffle(fonts);
 
-    const colors = [
-      "#e60000",
-      "#002ea1",
-      "#008000",
-      "#ffffff"
-    ];
-    let colorIndex = 0;
     let fontIndex = 0;
+    let flickerInterval;
+    let flickerPaused = false;
 
-    function cycleFonts() {
-      headline.style.fontFamily = shuffledFonts[fontIndex];
-      fontIndex++;
-
-      if (fontIndex < shuffledFonts.length) {
-        setTimeout(cycleFonts, 80);
-      } else {
-        document.body.style.transition = 'none';
-        document.body.style.backgroundColor = colors[0];
-        headline.style.fontFamily = "'Courier Prime', Courier, monospace";
-        emailWrapper.style.opacity = 1;
-
-        setTimeout(() => {
-          document.body.style.transition = 'background-color 3s ease, color 0.5s ease';
-          fadeToBlue();
-        }, 2000);
-      }
+    function startFlicker() {
+      flickerInterval = setInterval(() => {
+        headline.style.fontFamily = shuffledFonts[fontIndex];
+        fontIndex = (fontIndex + 1) % shuffledFonts.length;
+      }, 80);
     }
 
-    function fadeToBlue() {
-      document.body.style.backgroundColor = colors[1];
+    function pauseFlicker() {
+      clearInterval(flickerInterval);
+      flickerPaused = true;
+      headline.style.fontFamily = "Arial, sans-serif";
+    }
+
+    function resumeFlicker() {
+      flickerPaused = false;
+      startFlicker();
+    }
+
+    // Start flickering immediately
+    startFlicker();
+
+    // After 2 seconds, pause and show quote/email
+    setTimeout(() => {
+      pauseFlicker();
       quote.style.opacity = 1;
+      emailWrapper.style.opacity = 1;
 
+      // After 1s fade-in, resume flicker
       setTimeout(() => {
-        startBackgroundRotation();
-      }, 3000);
-    }
-
-    function startBackgroundRotation() {
-      function nextColor() {
-        colorIndex = (colorIndex + 1) % colors.length;
-        const newColor = colors[colorIndex];
-        document.body.style.backgroundColor = newColor;
-
-        if (newColor === '#ffffff') {
-          document.body.style.color = '#000';
-        } else {
-          document.body.style.color = '#fff';
-        }
-
-        const nextInterval = 2000 + Math.random() * 1000;
-        setTimeout(nextColor, nextInterval);
-      }
-      nextColor();
-    }
-
-    cycleFonts();
+        resumeFlicker();
+      }, 1000);
+    }, 2000);
   </script>
 </body>
 </html>
+
