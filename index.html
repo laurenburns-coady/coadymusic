@@ -69,7 +69,10 @@
     <a class="email-link" href="mailto:steve@coadymusic.com">Email.</a>
   </div>
   <script>
-    // Fonts in order
+    const headline = document.getElementById('headline');
+    const emailWrapper = document.getElementById('emailWrapper');
+
+    // Fonts excluding Arial
     const fonts = [
       'Impact, Charcoal, sans-serif',
       '"Times New Roman", Times, serif',
@@ -81,34 +84,50 @@
       'Tahoma, sans-serif',
       'Palatino, serif',
       '"Trebuchet MS", sans-serif',
-      'Papyrus, fantasy',
-      'Arial, sans-serif'
+      'Papyrus, fantasy'
     ];
+
+    // Shuffle function
+    function shuffle(array) {
+      let currentIndex = array.length, randomIndex;
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]
+        ];
+      }
+      return array;
+    }
+
+    // Shuffle fonts and add Arial last
+    const shuffledFonts = shuffle(fonts).concat('Arial, sans-serif');
 
     // Colors
     const colors = ['#000000', '#002ea1', '#e60000', '#008000', '#005000'];
-
-    const headline = document.getElementById('headline');
-    const emailWrapper = document.getElementById('emailWrapper');
-    let fontIndex = 0;
     let colorIndex = Math.floor(Math.random() * colors.length);
 
+    let fontIndex = 0;
+
     function cycleFonts() {
-      headline.style.fontFamily = fonts[fontIndex];
+      headline.style.fontFamily = shuffledFonts[fontIndex];
       fontIndex++;
 
-      if (fontIndex < fonts.length) {
-        setTimeout(cycleFonts, 80); // Very fast switching
+      if (fontIndex < shuffledFonts.length) {
+        setTimeout(cycleFonts, 80); // Fast switching
       } else {
-        // When Arial is reached:
-        // Fade in background and enlarge text
+        // Disable transition temporarily for instant color snap
+        document.body.style.transition = 'none';
         document.body.style.backgroundColor = '#e60000';
         headline.style.fontFamily = 'Arial, sans-serif';
         headline.style.fontSize = '20vw';
-        emailWrapper.style.opacity = 1; // Fade in email link
+        emailWrapper.style.opacity = 1;
 
-        // Start background rotation after fade completes
-        setTimeout(startBackgroundRotation, 1500);
+        // Re-enable transition after a short delay
+        setTimeout(() => {
+          document.body.style.transition = 'background-color 1s ease';
+          startBackgroundRotation();
+        }, 100);
       }
     }
 
@@ -116,10 +135,10 @@
       setInterval(() => {
         colorIndex = (colorIndex + 1) % colors.length;
         document.body.style.backgroundColor = colors[colorIndex];
-      }, 7000);
+      }, 2000); // faster cycling every 2 seconds
     }
 
-    // Start cycling fonts on load
+    // Start font cycling on load
     cycleFonts();
   </script>
 </body>
