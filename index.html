@@ -21,15 +21,16 @@
       background: #000;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       transition: background-color 2s ease, color 0.5s ease;
     }
     .container {
-      margin-left: 7vw;
-      max-width: 90%;
       display: flex;
       flex-direction: column;
-      position: relative;
+      align-items: flex-start;
+      gap: 8vh; /* Even vertical spacing between items */
+      margin-left: 7vw;
+      max-width: 90%;
     }
     h1 {
       font-size: 18vw;
@@ -44,23 +45,19 @@
       transition: opacity 2s ease;
       max-width: 100%;
       word-wrap: break-word;
-      margin-top: 18vh; /* Moved further down */
-      margin-left: 8vw; /* Nudge to right */
       color: inherit;
       text-decoration: none;
     }
     .quote-link .copyright {
-      font-size: 0.4em; /* Half size */
+      font-size: 0.4em;
       opacity: 0.4;
       color: #000;
-      vertical-align: super; /* Superscript */
+      vertical-align: super;
     }
     .quote-link:hover {
       text-decoration: underline;
     }
     .email-wrapper {
-      margin-left: 8vw; /* Nudge to right */
-      margin-bottom: 2rem;
       opacity: 0;
       transition: opacity 0.2s ease;
     }
@@ -77,7 +74,7 @@
       position: fixed;
       bottom: 1vh;
       right: 2vw;
-      font-size: 0.8vw; /* Smaller */
+      font-size: 0.8vw;
       opacity: 0.4;
       color: #000;
     }
@@ -87,10 +84,8 @@
       }
       .quote-link {
         font-size: 5vw;
-        margin-top: 12vh;
       }
       .email-wrapper {
-        margin-left: 8vw;
         margin-bottom: 1rem;
       }
       a.email-link {
@@ -109,9 +104,9 @@
     <a class="quote-link" id="quote" href="https://youtu.be/xW_IS-DPZ1E?si=MPyqFbZrF1nGiLbW" target="_blank" rel="noopener">
       Stoking the star maker machinery behind the popular song.<span class="copyright">©</span>
     </a>
-  </div>
-  <div class="email-wrapper" id="emailWrapper">
-    <a class="email-link" href="mailto:info@coadymusic.com">Email.</a>
+    <div class="email-wrapper" id="emailWrapper">
+      <a class="email-link" href="mailto:info@coadymusic.com">Email.</a>
+    </div>
   </div>
   <div class="copyright-info">
     Lyrics © 1974 Crazy Crow Music (BMI). All rights reserved.
@@ -178,7 +173,7 @@
         setTimeout(() => {
           document.body.style.transition = 'background-color 3s ease, color 0.5s ease';
           fadeToBlue();
-        }, 2000); // pause before blue fade
+        }, 2000);
       }
     }
 
