@@ -21,5 +21,47 @@
       margin-left: 5%;
       max-width: 90%;
     }
+    h1 {
+      font-size: 18vw;
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+    a.email-link {
+      font-size: 1.5vw;
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 2rem;
+      font-weight: 700;
+    }
+    a.email-link:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 22vw;
+      }
+      a.email-link {
+        font-size: 4vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Coady.</h1>
+    <a class="email-link" href="mailto:steve@coadymusic.com">Email.</a>
+  </div>
+  <script>
+    const colors = ['#000000', '#002ea1', '#e60000'];
+    let index = Math.floor(Math.random() * colors.length);
+    document.body.style.backgroundColor = colors[index];
 
-    
+    setInterval(() => {
+      index = (index + 1) % colors.length;
+      document.body.style.backgroundColor = colors[index];
+    }, 7000);
+  </script>
+</body>
+</html>
