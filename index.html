@@ -43,11 +43,11 @@
       headline.style.fontFamily = shuffledFonts[fontIndex];
       fontIndex = (fontIndex + 1) % shuffledFonts.length;
 
-      // ~15% chance to pause
+      // ~15% chance to pause randomly
       if (Math.random() < 0.15) {
         pauseFlickerRandom();
       }
-    }, 200); // slower flicker speed
+    }, 200); // slower flicker
   }
 
   function pauseFlicker() {
@@ -55,27 +55,26 @@
     headline.style.fontFamily = "Arial, sans-serif";
   }
 
-  function resumeFlicker() {
-    startFlicker();
-  }
-
   function pauseFlickerRandom() {
     clearInterval(flickerInterval);
-    const pauseDuration = 800 + Math.random() * 700; // longer pauses
+    const pauseDuration = 800 + Math.random() * 700; // 0.8–1.5s pause
     setTimeout(() => {
       startFlicker();
     }, pauseDuration);
   }
 
+  function resumeFlicker() {
+    startFlicker();
+  }
+
   // Start flickering immediately
   startFlicker();
 
-  // After 2 seconds, pause and fade in quote/email
+  // After 2s, pause, fade in quote/email, resume flicker
   setTimeout(() => {
     pauseFlicker();
     quote.style.opacity = 1;
     emailWrapper.style.opacity = 1;
-    // After fade-in, resume flickering
     setTimeout(() => {
       startFlicker();
     }, 1000);
