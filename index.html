@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Coady</title>
+  <!-- Load Roboto from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100vh;
       width: 100%;
-      font-family: Arial, sans-serif;
+      font-family: Arial, sans-serif; /* final default */
       color: #fff;
       background: #000;
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* pushes email to bottom */
+      justify-content: space-between;
       transition: background-color 2s ease;
     }
     .container {
@@ -30,8 +32,8 @@
       letter-spacing: -0.05em;
     }
     .email-wrapper {
-      margin-left: 7vw; /* adjust this to fine-tune horizontal alignment */
-      margin-bottom: 2rem; /* space from bottom edge */
+      margin-left: 7vw;
+      margin-bottom: 2rem;
     }
     a.email-link {
       font-size: 2vw;
@@ -51,27 +53,64 @@
         margin-bottom: 1rem;
       }
       a.email-link {
-        font-size: 5vw;
+        font-size: 6vw; /* larger on mobile */
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Coady.</h1>
+    <h1 id="headline">Coady.</h1>
   </div>
   <div class="email-wrapper">
-    <a class="email-link" href="mailto:info@coadymusic.com">Email.</a>
+    <a class="email-link" href="mailto:steve@coadymusic.com">Email.</a>
   </div>
   <script>
-    const colors = ['#000000', '#002ea1', '#e60000'];
-    let index = Math.floor(Math.random() * colors.length);
-    document.body.style.backgroundColor = colors[index];
+    // Define fonts in order
+    const fonts = [
+      'Impact, Charcoal, sans-serif',
+      '"Times New Roman", Times, serif',
+      '"Comic Sans MS", cursive, sans-serif',
+      'Roboto, sans-serif',
+      '"Courier New", Courier, monospace',
+      'Arial, sans-serif'
+    ];
 
-    setInterval(() => {
-      index = (index + 1) % colors.length;
-      document.body.style.backgroundColor = colors[index];
-    }, 7000);
+    // Colors
+    const colors = ['#000000', '#002ea1', '#e60000', '#008000', '#005000'];
+
+    const headline = document.getElementById('headline');
+
+    let fontIndex = 0;
+    let colorIndex = Math.floor(Math.random() * colors.length);
+    let backgroundIntervalStarted = false;
+
+    // Function to step through fonts
+    function cycleFonts() {
+      headline.style.fontFamily = fonts[fontIndex];
+      fontIndex++;
+
+      if (fontIndex < fonts.length) {
+        // Keep cycling quickly every 500ms
+        setTimeout(cycleFonts, 500);
+      } else {
+        // When we reach Arial, start the background rotation
+        startBackgroundRotation();
+      }
+    }
+
+    // Function to start background color changes
+    function startBackgroundRotation() {
+      document.body.style.backgroundColor = colors[colorIndex];
+
+      setInterval(() => {
+        colorIndex = (colorIndex + 1) % colors.length;
+        document.body.style.backgroundColor = colors[colorIndex];
+      }, 7000);
+    }
+
+    // Start cycling fonts on page load
+    cycleFonts();
   </script>
 </body>
 </html>
