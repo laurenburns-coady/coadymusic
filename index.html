@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Coady</title>
-  <!-- Load Open Sans from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+  <!-- Load IBM Plex Sans and Open Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
     html, body {
       margin: 0;
       padding: 0;
       background-color: #000;
       color: #fff;
-      font-family: 'Open Sans', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -22,50 +22,58 @@
       max-width: 90%;
     }
     h1 {
-      font-size: 10vw;
+      font-size: 15vw;
       font-weight: 700;
       margin: 0;
     }
-    p {
+    .subtitle {
+      font-family: 'Open Sans', sans-serif;
       font-size: 2vw;
+      font-weight: 400;
       margin: 1rem 0 0 0;
       max-width: 65vw;
       line-height: 1.4;
-      font-weight: 700;
     }
     .credit {
-      font-size: 1.5vw;
-      margin-top: 0.5rem;
-      color: #aaa;
-      font-weight: 700;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.2vw;
+      font-weight: 400;
+      color: #777;
+      text-align: right;
+      margin-top: 0.3rem;
     }
-    a {
+    .credit a {
+      color: #777;
+      text-decoration: none;
+    }
+    .credit a:hover {
+      text-decoration: underline;
+    }
+    a.email-link {
       font-size: 1.5vw;
       color: #fff;
       text-decoration: none;
-      border: 1px solid #fff;
-      padding: 0.5rem 1rem;
       display: inline-block;
       margin-top: 2rem;
       font-weight: 700;
+      font-family: 'Open Sans', sans-serif;
     }
-    a:hover {
-      background: #fff;
-      color: #000;
+    a.email-link:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
       h1 {
-        font-size: 15vw;
+        font-size: 20vw;
       }
-      p {
+      .subtitle {
         font-size: 4vw;
         max-width: 90vw;
       }
       .credit {
         font-size: 3vw;
       }
-      a {
+      a.email-link {
         font-size: 4vw;
       }
     }
@@ -74,9 +82,13 @@
 <body>
   <div class="container">
     <h1>Coady.</h1>
-    <p>Stoking the star maker machinery behind the popular song.</p>
-    <div class="credit">—Joni Mitchell</div>
-    <a href="mailto:steve@coadymusic.com">Email</a>
+    <div class="subtitle">
+      Stoking the star maker machinery behind the popular song.
+    </div>
+    <div class="credit">
+      <a href="https://youtu.be/xW_IS-DPZ1E?si=rSZjZ05f_UxIEabB" target="_blank">—Joni Mitchell</a>
+    </div>
+    <a class="email-link" href="mailto:steve@coadymusic.com">Email.</a>
   </div>
 </body>
 </html>
