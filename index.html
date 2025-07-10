@@ -30,11 +30,13 @@
       font-weight: 400;
       margin: 0;
       letter-spacing: -0.05em;
-      transition: font-family 0.5s ease, font-size 0.5s ease;
+      transition: font-family 0.2s ease, font-size 0.5s ease;
     }
     .email-wrapper {
       margin-left: 7vw;
       margin-bottom: 2rem;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
     a.email-link {
       font-size: 2vw;
@@ -63,7 +65,7 @@
   <div class="container">
     <h1 id="headline">Coady.</h1>
   </div>
-  <div class="email-wrapper">
+  <div class="email-wrapper" id="emailWrapper">
     <a class="email-link" href="mailto:steve@coadymusic.com">Email.</a>
   </div>
   <script>
@@ -87,6 +89,7 @@
     const colors = ['#000000', '#002ea1', '#e60000', '#008000', '#005000'];
 
     const headline = document.getElementById('headline');
+    const emailWrapper = document.getElementById('emailWrapper');
     let fontIndex = 0;
     let colorIndex = Math.floor(Math.random() * colors.length);
 
@@ -95,12 +98,14 @@
       fontIndex++;
 
       if (fontIndex < fonts.length) {
-        setTimeout(cycleFonts, 250);
+        setTimeout(cycleFonts, 80); // Very fast switching
       } else {
-        // Fade in final style and background together
+        // When Arial is reached:
+        // Fade in background and enlarge text
         document.body.style.backgroundColor = '#e60000';
         headline.style.fontFamily = 'Arial, sans-serif';
         headline.style.fontSize = '20vw';
+        emailWrapper.style.opacity = 1; // Fade in email link
 
         // Start background rotation after fade completes
         setTimeout(startBackgroundRotation, 1500);
