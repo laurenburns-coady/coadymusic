@@ -11,13 +11,13 @@
       padding: 0;
       height: 100vh;
       width: 100%;
-      font-family: Arial, sans-serif; /* final default */
+      font-family: Arial, sans-serif;
       color: #fff;
       background: #000;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: background-color 2s ease;
+      transition: background-color 1.5s ease;
     }
     .container {
       margin-left: 5%;
@@ -30,6 +30,7 @@
       font-weight: 400;
       margin: 0;
       letter-spacing: -0.05em;
+      transition: font-family 0.5s ease, font-size 0.5s ease;
     }
     .email-wrapper {
       margin-left: 7vw;
@@ -53,7 +54,7 @@
         margin-bottom: 1rem;
       }
       a.email-link {
-        font-size: 6vw; /* larger on mobile */
+        font-size: 6vw;
       }
     }
   </style>
@@ -66,13 +67,19 @@
     <a class="email-link" href="mailto:steve@coadymusic.com">Email.</a>
   </div>
   <script>
-    // Define fonts in order
+    // Fonts in order
     const fonts = [
       'Impact, Charcoal, sans-serif',
       '"Times New Roman", Times, serif',
       '"Comic Sans MS", cursive, sans-serif',
       'Roboto, sans-serif',
       '"Courier New", Courier, monospace',
+      'Georgia, serif',
+      'Verdana, sans-serif',
+      'Tahoma, sans-serif',
+      'Palatino, serif',
+      '"Trebuchet MS", sans-serif',
+      'Papyrus, fantasy',
       'Arial, sans-serif'
     ];
 
@@ -80,36 +87,34 @@
     const colors = ['#000000', '#002ea1', '#e60000', '#008000', '#005000'];
 
     const headline = document.getElementById('headline');
-
     let fontIndex = 0;
     let colorIndex = Math.floor(Math.random() * colors.length);
-    let backgroundIntervalStarted = false;
 
-    // Function to step through fonts
     function cycleFonts() {
       headline.style.fontFamily = fonts[fontIndex];
       fontIndex++;
 
       if (fontIndex < fonts.length) {
-        // Keep cycling quickly every 500ms
-        setTimeout(cycleFonts, 500);
+        setTimeout(cycleFonts, 250);
       } else {
-        // When we reach Arial, start the background rotation
-        startBackgroundRotation();
+        // Fade in final style and background together
+        document.body.style.backgroundColor = '#e60000';
+        headline.style.fontFamily = 'Arial, sans-serif';
+        headline.style.fontSize = '20vw';
+
+        // Start background rotation after fade completes
+        setTimeout(startBackgroundRotation, 1500);
       }
     }
 
-    // Function to start background color changes
     function startBackgroundRotation() {
-      document.body.style.backgroundColor = colors[colorIndex];
-
       setInterval(() => {
         colorIndex = (colorIndex + 1) % colors.length;
         document.body.style.backgroundColor = colors[colorIndex];
       }, 7000);
     }
 
-    // Start cycling fonts on page load
+    // Start cycling fonts on load
     cycleFonts();
   </script>
 </body>
