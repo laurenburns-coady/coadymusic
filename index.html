@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Coady</title>
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <!-- Load Roboto from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <style>
@@ -17,7 +19,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: background-color 1.5s ease;
+      transition: background-color 2s ease;
     }
     .container {
       margin-left: 5%;
@@ -30,13 +32,13 @@
       font-weight: 400;
       margin: 0;
       letter-spacing: -0.05em;
-      transition: font-family 0.2s ease, font-size 0.5s ease;
+      transition: font-family 0.2s ease, font-weight 0.2s ease, font-style 0.2s ease;
     }
     .email-wrapper {
       margin-left: 7vw;
       margin-bottom: 2rem;
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 0.2s ease;
     }
     a.email-link {
       font-size: 2vw;
@@ -72,7 +74,6 @@
     const headline = document.getElementById('headline');
     const emailWrapper = document.getElementById('emailWrapper');
 
-    // Fonts excluding Arial
     const fonts = [
       'Impact, Charcoal, sans-serif',
       '"Times New Roman", Times, serif',
@@ -84,10 +85,14 @@
       'Tahoma, sans-serif',
       'Palatino, serif',
       '"Trebuchet MS", sans-serif',
-      'Papyrus, fantasy'
+      'Papyrus, fantasy',
+      '"Arial Black", Gadget, sans-serif',
+      '"Lucida Console", Monaco, monospace',
+      '"Gill Sans", sans-serif',
+      '"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif',
+      '"Brush Script MT", cursive'
     ];
 
-    // Shuffle function
     function shuffle(array) {
       let currentIndex = array.length, randomIndex;
       while (currentIndex !== 0) {
@@ -100,13 +105,9 @@
       return array;
     }
 
-    // Shuffle fonts and add Arial last
     const shuffledFonts = shuffle(fonts).concat('Arial, sans-serif');
-
-    // Colors
     const colors = ['#000000', '#002ea1', '#e60000', '#008000', '#005000'];
     let colorIndex = Math.floor(Math.random() * colors.length);
-
     let fontIndex = 0;
 
     function cycleFonts() {
@@ -114,31 +115,30 @@
       fontIndex++;
 
       if (fontIndex < shuffledFonts.length) {
-        setTimeout(cycleFonts, 80); // Fast switching
+        setTimeout(cycleFonts, 80);
       } else {
-        // Disable transition temporarily for instant color snap
         document.body.style.transition = 'none';
         document.body.style.backgroundColor = '#e60000';
         headline.style.fontFamily = 'Arial, sans-serif';
-        headline.style.fontSize = '20vw';
         emailWrapper.style.opacity = 1;
 
-        // Re-enable transition after a short delay
         setTimeout(() => {
-          document.body.style.transition = 'background-color 1s ease';
+          document.body.style.transition = 'background-color 2s ease';
           startBackgroundRotation();
         }, 100);
       }
     }
 
     function startBackgroundRotation() {
-      setInterval(() => {
+      function nextColor() {
         colorIndex = (colorIndex + 1) % colors.length;
         document.body.style.backgroundColor = colors[colorIndex];
-      }, 2000); // faster cycling every 2 seconds
+        const nextInterval = 2000 + Math.random() * 1000;
+        setTimeout(nextColor, nextInterval);
+      }
+      nextColor();
     }
 
-    // Start font cycling on load
     cycleFonts();
   </script>
 </body>
