@@ -1,82 +1,181 @@
-<script>
-  const headline = document.getElementById('headline');
-  const emailWrapper = document.getElementById('emailWrapper');
-  const quote = document.getElementById('quote');
-
-  const fonts = [
-    'Impact, Charcoal, sans-serif',
-    '"Times New Roman", Times, serif',
-    '"Comic Sans MS", cursive',
-    'Roboto, sans-serif',
-    '"Courier New", Courier, monospace',
-    'Georgia, serif',
-    'Verdana, sans-serif',
-    'Tahoma, sans-serif',
-    'Palatino, serif',
-    '"Trebuchet MS", sans-serif',
-    'Papyrus, fantasy',
-    '"Arial Black", Gadget, sans-serif',
-    '"Lucida Console", Monaco, monospace',
-    '"Gill Sans", sans-serif',
-    '"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif',
-    '"Brush Script MT", cursive'
-  ];
-
-  function shuffle(array) {
-    let currentIndex = array.length, randomIndex;
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]
-      ];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Coady.</title>
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
-    return array;
-  }
-
-  const shuffledFonts = shuffle(fonts);
-  let fontIndex = 0;
-  let flickerInterval;
-
-  function startFlicker() {
-    flickerInterval = setInterval(() => {
-      headline.style.fontFamily = shuffledFonts[fontIndex];
-      fontIndex = (fontIndex + 1) % shuffledFonts.length;
-
-      // ~15% chance to pause randomly
-      if (Math.random() < 0.15) {
-        pauseFlickerRandom();
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18vh; /* More space under Coady */
+      margin-left: 7vw;
+      margin-top: 10vh;
+      max-width: 90%;
+    }
+    h1 {
+      font-size: 14vw;
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: -0.05em;
+      transition: font-family 0.1s ease;
+      position: relative;
+      line-height: 1;
+    }
+    .quote {
+      font-family: Arial, sans-serif;
+      font-size: 2.5vw;
+      opacity: 0;
+      transition: opacity 1s ease;
+      max-width: 100%;
+      word-wrap: break-word;
+      position: relative;
+    }
+    .quote .copyright {
+      font-size: 0.4em;
+      opacity: 0.4;
+      color: #aaa;
+      vertical-align: super;
+    }
+    .email-wrapper {
+      opacity: 0;
+      transition: opacity 1s ease;
+      position: relative;
+    }
+    a.email-link {
+      font-family: Arial, sans-serif;
+      font-size: 3vw;
+      color: inherit;
+      text-decoration: none;
+      font-weight: 400;
+    }
+    a.email-link:hover {
+      text-decoration: underline;
+    }
+    .copyright-info {
+      position: fixed;
+      bottom: 1vh;
+      right: 2vw;
+      font-size: 0.8vw;
+      opacity: 0.4;
+      color: #888;
+      font-family: Arial, sans-serif;
+    }
+    @media (max-width:600px) {
+      h1 {
+        font-size: 18vw;
       }
-    }, 200); // slower flicker
-  }
+      .quote {
+        font-size: 5vw;
+      }
+      a.email-link {
+        font-size: 14vw !important;
+        min-font-size: 22px;
+      }
+      .copyright-info {
+        font-size: 2vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="headline">Coady.</h1>
+    <div class="quote" id="quote">
+      Stoking the star maker machinery behind the popular song.<span class="copyright">©</span>
+    </div>
+    <div class="email-wrapper" id="emailWrapper">
+      <a class="email-link" href="mailto:info@coadymusic.com">Email.</a>
+    </div>
+  </div>
+  <div class="copyright-info">
+    Lyrics © 1974 Crazy Crow Music (BMI). All rights reserved.
+  </div>
+  <script>
+    const headline = document.getElementById('headline');
+    const emailWrapper = document.getElementById('emailWrapper');
+    const quote = document.getElementById('quote');
 
-  function pauseFlicker() {
-    clearInterval(flickerInterval);
-    headline.style.fontFamily = "Arial, sans-serif";
-  }
+    const fonts = [
+      'Impact, Charcoal, sans-serif',
+      '"Times New Roman", Times, serif',
+      '"Comic Sans MS", cursive',
+      'Roboto, sans-serif',
+      '"Courier New", Courier, monospace',
+      'Georgia, serif',
+      'Verdana, sans-serif',
+      'Tahoma, sans-serif',
+      'Palatino, serif',
+      '"Trebuchet MS", sans-serif',
+      'Papyrus, fantasy',
+      '"Arial Black", Gadget, sans-serif',
+      '"Lucida Console", Monaco, monospace',
+      '"Gill Sans", sans-serif',
+      '"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif',
+      '"Brush Script MT", cursive'
+    ];
 
-  function pauseFlickerRandom() {
-    clearInterval(flickerInterval);
-    const pauseDuration = 800 + Math.random() * 700; // 0.8–1.5s pause
-    setTimeout(() => {
+    function shuffle(array) {
+      let currentIndex = array.length, randomIndex;
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]
+        ];
+      }
+      return array;
+    }
+
+    const shuffledFonts = shuffle(fonts);
+    let fontIndex = 0;
+    let flickerInterval;
+
+    function startFlicker() {
+      flickerInterval = setInterval(() => {
+        headline.style.fontFamily = shuffledFonts[fontIndex];
+        fontIndex = (fontIndex + 1) % shuffledFonts.length;
+      }, 80);
+    }
+
+    function pauseFlicker() {
+      clearInterval(flickerInterval);
+      headline.style.fontFamily = "Arial, sans-serif";
+    }
+
+    function resumeFlicker() {
       startFlicker();
-    }, pauseDuration);
-  }
+    }
 
-  function resumeFlicker() {
+    // Start flickering immediately
     startFlicker();
-  }
 
-  // Start flickering immediately
-  startFlicker();
-
-  // After 2s, pause, fade in quote/email, resume flicker
-  setTimeout(() => {
-    pauseFlicker();
-    quote.style.opacity = 1;
-    emailWrapper.style.opacity = 1;
+    // After 2s, pause, fade in quote/email, resume flickering
     setTimeout(() => {
-      startFlicker();
-    }, 1000);
-  }, 2000);
-</script>
+      pauseFlicker();
+      quote.style.opacity = 1;
+      emailWrapper.style.opacity = 1;
+      setTimeout(() => {
+        startFlicker();
+      }, 1000);
+    }, 2000);
+  </script>
+</body>
+</html>
